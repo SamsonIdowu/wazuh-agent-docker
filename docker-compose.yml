@@ -1,1 +1,18 @@
+version: '3'
 
+services:
+  wazuh-agent:
+    image: fajarhide/wazuh-agent
+    environment:
+      - WAZUH_MANAGER_IP=<WAZUH_SERVER_IP>
+      - WAZUH_MANAGER_PORT=1514
+      - WAZUH_REGISTRATION_PASSWORD=admin
+    add_host:
+      - docker-agent:<AGENT_IP>
+    volumes:
+      - /var/log/syslog:/var/log/syslog
+      - /var/log/auth.log:/var/log/auth.log
+      - /var/log/dpkg.log:/var/log/dpkg.log
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro

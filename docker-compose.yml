@@ -2,13 +2,13 @@ version: '3'
 
 services:
   wazuh-agent:
-    container_name: wazuh-agent
+    container_name: wazuh-docker-agent
     image: samsonidowu/wazuh-agent-4.7.2:latest
     environment:
-      - WAZUH_MANAGER_IP=192.168.186.129
+      - WAZUH_MANAGER_IP=<WAZUH_SERVER_IP>
       - WAZUH_MANAGER_PORT=1514
       - WAZUH_REGISTRATION_PASSWORD=admin
-      - WAZUH_AGENT_NAME=docker-agent
+      - WAZUH_AGENT_NAME=wazuh-docker-agent
     volumes:
       - ./ossec.conf:/var/ossec/etc/ossec.conf
       - /var/log/auth.log:/var/log/auth.log
@@ -18,4 +18,4 @@ services:
       - /etc/timezone:/etc/timezone:ro
     ports:
       - "1514:1514"
-    hostname: docker-agent
+    hostname: wazuh-docker-agent
